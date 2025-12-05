@@ -1,8 +1,8 @@
 import OpenAI from 'openai';
 
-const client = new OpenAI({
-   apiKey: process.env.OPENAI_API_KEY,
-});
+// const client = new OpenAI({
+//    apiKey: process.env.OPENAI_API_KEY,
+// });
 
 // const response = await client.responses.create({
 //   model: "o4-mini",
@@ -10,6 +10,7 @@ const client = new OpenAI({
 //   temperature: 0.7,
 //   max_output_tokens: 50,
 // });
+
 
 const response = await fetch(
    'https://api.groq.com/openai/v1/chat/completions',
