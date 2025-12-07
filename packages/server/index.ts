@@ -1,21 +1,19 @@
 import express from 'express';
 import type { Request, Response } from 'express';
 import z from 'zod';
+import { chatService } from './services/chat.service';
 const app = express();
 app.use(express.json());
 
 const port = process.env.PORT || 3000;
-const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
 app.get('/', (req: Request, res: Response) => {
-   res.send(GROQ_API_KEY);
+   res.send('GROQ_API_KEY');
 });
 
 app.get('/api/hello', (req: Request, res: Response) => {
    res.json({ message: 'Hello worldfajdgo' });
 });
-
-let chatHistory = [];
 
 const chatSchema = z.object({
    prompt: z
@@ -34,27 +32,9 @@ app.post('/api/chat', async (req: Request, res: Response) => {
    }
 
    const { prompt } = req.body;
-   chatHistory.push({ role: 'user', content: prompt });
-
-   const response = await fetch(
-      'https://api.groq.com/openai/v1/chat/completions',
-      {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${GROQ_API_KEY}`,
-         },
-         body: JSON.stringify({
-            model: 'llama-3.1-8b-instant',
-            messages: chatHistory,
-         }),
-      }
-   );
-   const data = (await response.json()) as any;
-   const reply = data.choices[0].message.content;
-   chatHistory.push({ role: 'assistant', content: reply });
-
-   res.json({ message: reply });
+   console.log('prompt', prompt);
+   const reply = await chatService.sendMessage(prompt);
+   return res.json({ message: reply });
 });
 
 app.listen(port, () => {
