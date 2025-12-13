@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button } from './components/ui/button';
+import ChatBot from './components/chat/ChatBot';
 
 function App() {
    const [message, setMessage] = useState('');
@@ -11,10 +11,9 @@ function App() {
    }, []);
 
    return (
-      <>
-         <p className=" font-bold text-center">{message}</p>
-         <Button>Click medd</Button>
-      </>
+      <div className="p-4 h-screen w-full">
+         <ChatBot />
+      </div>
    );
 }
 
