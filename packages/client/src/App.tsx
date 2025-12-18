@@ -11,8 +11,15 @@ function App() {
    }, []);
 
    return (
-      <div className="p-4 h-screen w-3xl mx-auto">
-         <ChatBot />
+      <div className="p-4 h-screen w-3xl mx-auto flex flex-col">
+         <ChatBot>
+            <div className="flex flex-col flex-1 gap-3 mb-6 overflow-y-auto">
+               <ChatBot.Messages />
+               <ChatBot.TypingIndicator />
+               <ChatBot.Error />
+            </div>
+            <ChatBot.Input />
+         </ChatBot>
       </div>
    );
 }
