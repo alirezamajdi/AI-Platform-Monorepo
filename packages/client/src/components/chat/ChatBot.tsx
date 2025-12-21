@@ -73,114 +73,109 @@ const notificationAudio = new Audio(notificationSound);
 notificationAudio.volume = 0.4;
 
 type ChatResponse = {
-   message: string;
+  message: string;
 };
 
 type ChatBotContextType = {
-   messages: Message[];
-   isBotTyping: boolean;
-   error: string;
-   onSubmit: (data: ChatFormData) => Promise<void>;
+  messages: Message[];
+  isBotTyping: boolean;
+  error: string;
+  onSubmit: (data: ChatFormData) => Promise<void>;
 };
 
 const ChatBotContext = createContext<ChatBotContextType | undefined>(undefined);
 
 export const useChatBot = () => {
-   const context = useContext(ChatBotContext);
-   if (!context) {
-      throw new Error('useChatBot must be used within a ChatBot');
-   }
-   return context;
+  const context = useContext(ChatBotContext);
+  if (!context) {
+    throw new Error('useChatBot must be used within a ChatBot');
+  }
+  return context;
 };
 
 type ChatBotProps = {
-   children: ReactNode;
+  children: ReactNode;
 };
 
 const ChatBot = ({ children }: ChatBotProps) => {
-   const [messages, setMessages] = useState<Message[]>([]);
-   const [isBotTyping, setIsBotTyping] = useState(false);
-   const [error, setError] = useState('');
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isBotTyping, setIsBotTyping] = useState(false);
+  const [error, setError] = useState('');
 
-   const onSubmit = async ({ prompt }: ChatFormData) => {
-      try {
-         setMessages((prev) => [...prev, { content: prompt, role: 'user' }]);
-         setIsBotTyping(true);
-         popAudio.play();
+  const onSubmit = async ({ prompt }: ChatFormData) => {
+    try {
+      setMessages((prev) => [...prev, { content: prompt, role: 'user' }]);
+      setIsBotTyping(true);
+      popAudio.play();
 
-         setError('');
-         const { data } = await axios.post<ChatResponse>('/api/chat', {
-            prompt,
-         });
-         setMessages((prev) => [
-            ...prev,
-            { content: data?.message, role: 'bot' },
-         ]);
-         notificationAudio.play();
-      } catch (err) {
-         console.error(err);
-         setError('Something went wrong, try again!');
-      } finally {
-         setIsBotTyping(false);
-      }
-   };
+      setError('');
+      const { data } = await axios.post<ChatResponse>('/api/chat', {
+        prompt,
+      });
+      setMessages((prev) => [...prev, { content: data?.message, role: 'bot' }]);
+      notificationAudio.play();
+    } catch (err) {
+      console.error(err);
+      setError('Something went wrong, try again!');
+    } finally {
+      setIsBotTyping(false);
+    }
+  };
 
-   return (
-      <ChatBotContext.Provider
-         value={{ messages, isBotTyping, error, onSubmit }}
-      >
-         <div className="flex flex-col h-full">{children}</div>
-      </ChatBotContext.Provider>
-   );
+  return (
+    <ChatBotContext.Provider value={{ messages, isBotTyping, error, onSubmit }}>
+      <div className="flex flex-col h-full">{children}</div>
+    </ChatBotContext.Provider>
+  );
 };
 
 // Compound components
 ChatBot.Messages = () => {
-   const { messages } = useChatBot();
-   return (
-      <ChatMessages messages={messages}>
-         <div className="flex flex-col gap-2">
-            {messages.map((msg, i) => (
-               <ChatMessages.Item
-                  key={i}
-                  message={msg}
-                  isLast={i === messages.length - 1}
-               />
-            ))}
-         </div>
-      </ChatMessages>
-   );
+  const { messages } = useChatBot();
+  return (
+    <ChatMessages messages={messages}>
+      <div className="flex flex-col gap-2">
+        {messages.map((msg, i) => (
+          <ChatMessages.Item
+            key={i}
+            message={msg}
+            isLast={i === messages.length - 1}
+          />
+        ))}
+      </div>
+    </ChatMessages>
+  );
 };
 
 ChatBot.Input = () => {
-   const { onSubmit } = useChatBot();
-   return (
-      <ChatInput onSubmit={onSubmit}>
-         <ChatInput.Form>
-            <ChatInput.Textarea />
-            <ChatInput.SubmitButton />
-         </ChatInput.Form>
-      </ChatInput>
-   );
+  const { onSubmit } = useChatBot();
+  return (
+    <ChatInput onSubmit={onSubmit}>
+      <ChatInput.Form>
+        <ChatInput.Textarea />
+        <ChatInput.SubmitButton />
+      </ChatInput.Form>
+    </ChatInput>
+  );
 };
 
 ChatBot.TypingIndicator = () => {
-   const { isBotTyping } = useChatBot();
-   if (!isBotTyping) return null;
-   return (
-      <TypingIndicator>
-         <TypingIndicator.Dot />
-         <TypingIndicator.Dot style={{ animationDelay: '0.2s' }} />
-         <TypingIndicator.Dot />
-         <TypingIndicator.Dot style={{ animationDelay: '0.4s' }} />
-      </TypingIndicator>
-   );
+  const { isBotTyping } = useChatBot();
+  if (!isBotTyping) return null;
+  return (
+    <TypingIndicator>
+      <TypingIndicator.Dot />
+      <TypingIndicator.Dot style={{ animationDelay: '0.2s' }} />
+      <TypingIndicator.Dot />
+      <TypingIndicator.Dot style={{ animationDelay: '0.4s' }} />
+    </TypingIndicator>
+  );
 };
 
 ChatBot.Error = () => {
-   const { error } = useChatBot();
-   if (!error) return null;
-   return <p className="text-red-500">{error}</p>;
+  const { error } = useChatBot();
+  if (!error) return null;
+  return <p className="text-red-500">{error}</p>;
 };
 
 export default ChatBot;

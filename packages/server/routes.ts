@@ -6,11 +6,11 @@ import { reviewController } from './controllers/review.controller';
 const router = express.Router();
 
 router.get('/', (req: Request, res: Response) => {
-   res.send('Hello World!');
+  res.send('Hello World!');
 });
 
 router.get('/api/hello', (req: Request, res: Response) => {
-   res.json({ message: 'Hello World!' });
+  res.json({ message: 'Hello World!' });
 });
 
 router.post('/api/chat', chantController.sendMessage);

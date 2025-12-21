@@ -22,15 +22,15 @@ export type * from './prismaNamespace.ts';
 export const Decimal = runtime.Decimal;
 
 export const NullTypes = {
-   DbNull: runtime.NullTypes.DbNull as new (
-      secret: never
-   ) => typeof runtime.DbNull,
-   JsonNull: runtime.NullTypes.JsonNull as new (
-      secret: never
-   ) => typeof runtime.JsonNull,
-   AnyNull: runtime.NullTypes.AnyNull as new (
-      secret: never
-   ) => typeof runtime.AnyNull,
+  DbNull: runtime.NullTypes.DbNull as new (
+    secret: never
+  ) => typeof runtime.DbNull,
+  JsonNull: runtime.NullTypes.JsonNull as new (
+    secret: never
+  ) => typeof runtime.JsonNull,
+  AnyNull: runtime.NullTypes.AnyNull as new (
+    secret: never
+  ) => typeof runtime.AnyNull,
 };
 /**
  * Helper for filtering JSON entries that have `null` on the database (empty on the db)
@@ -54,9 +54,9 @@ export const JsonNull = runtime.JsonNull;
 export const AnyNull = runtime.AnyNull;
 
 export const ModelName = {
-   Product: 'Product',
-   Review: 'Review',
-   Summary: 'Summary',
+  Product: 'Product',
+  Review: 'Review',
+  Summary: 'Summary',
 } as const;
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -66,81 +66,81 @@ export type ModelName = (typeof ModelName)[keyof typeof ModelName];
  */
 
 export const TransactionIsolationLevel = {
-   ReadUncommitted: 'ReadUncommitted',
-   ReadCommitted: 'ReadCommitted',
-   RepeatableRead: 'RepeatableRead',
-   Serializable: 'Serializable',
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
+  Serializable: 'Serializable',
 } as const;
 
 export type TransactionIsolationLevel =
-   (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel];
+  (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel];
 
 export const ProductScalarFieldEnum = {
-   id: 'id',
-   name: 'name',
-   description: 'description',
-   price: 'price',
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  price: 'price',
 } as const;
 
 export type ProductScalarFieldEnum =
-   (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum];
+  (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum];
 
 export const ReviewScalarFieldEnum = {
-   id: 'id',
-   author: 'author',
-   rating: 'rating',
-   content: 'content',
-   createdAt: 'createdAt',
-   productId: 'productId',
+  id: 'id',
+  author: 'author',
+  rating: 'rating',
+  content: 'content',
+  createdAt: 'createdAt',
+  productId: 'productId',
 } as const;
 
 export type ReviewScalarFieldEnum =
-   (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum];
+  (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum];
 
 export const SummaryScalarFieldEnum = {
-   id: 'id',
-   productId: 'productId',
-   content: 'content',
-   generatedAt: 'generatedAt',
-   expiresAt: 'expiresAt',
+  id: 'id',
+  productId: 'productId',
+  content: 'content',
+  generatedAt: 'generatedAt',
+  expiresAt: 'expiresAt',
 } as const;
 
 export type SummaryScalarFieldEnum =
-   (typeof SummaryScalarFieldEnum)[keyof typeof SummaryScalarFieldEnum];
+  (typeof SummaryScalarFieldEnum)[keyof typeof SummaryScalarFieldEnum];
 
 export const SortOrder = {
-   asc: 'asc',
-   desc: 'desc',
+  asc: 'asc',
+  desc: 'desc',
 } as const;
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder];
 
 export const NullsOrder = {
-   first: 'first',
-   last: 'last',
+  first: 'first',
+  last: 'last',
 } as const;
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder];
 
 export const ProductOrderByRelevanceFieldEnum = {
-   name: 'name',
-   description: 'description',
+  name: 'name',
+  description: 'description',
 } as const;
 
 export type ProductOrderByRelevanceFieldEnum =
-   (typeof ProductOrderByRelevanceFieldEnum)[keyof typeof ProductOrderByRelevanceFieldEnum];
+  (typeof ProductOrderByRelevanceFieldEnum)[keyof typeof ProductOrderByRelevanceFieldEnum];
 
 export const ReviewOrderByRelevanceFieldEnum = {
-   author: 'author',
-   content: 'content',
+  author: 'author',
+  content: 'content',
 } as const;
 
 export type ReviewOrderByRelevanceFieldEnum =
-   (typeof ReviewOrderByRelevanceFieldEnum)[keyof typeof ReviewOrderByRelevanceFieldEnum];
+  (typeof ReviewOrderByRelevanceFieldEnum)[keyof typeof ReviewOrderByRelevanceFieldEnum];
 
 export const SummaryOrderByRelevanceFieldEnum = {
-   content: 'content',
+  content: 'content',
 } as const;
 
 export type SummaryOrderByRelevanceFieldEnum =
-   (typeof SummaryOrderByRelevanceFieldEnum)[keyof typeof SummaryOrderByRelevanceFieldEnum];
+  (typeof SummaryOrderByRelevanceFieldEnum)[keyof typeof SummaryOrderByRelevanceFieldEnum];
